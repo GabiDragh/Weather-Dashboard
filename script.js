@@ -32,7 +32,7 @@ console.log(data);
 console.log(currentLat);
 console.log(currentLong);
 
-var currentWeatherURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + currentLat + "&lon=" + currentLong + "&cnt=1&units=metric&appid=" + APIkey;
+var currentWeatherURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + currentLat + "&lon=" + currentLong + "&units=metric&appid=" + APIkey;
 console.log(currentWeatherURL);
 
 fetch(currentWeatherURL)
@@ -55,7 +55,7 @@ getTodaysWeather();
 //Future weather conditions are shown in a 5 day forecast displaying in #forecast: the date, icon for weather conditions, temperature and humidity (create 5 bootstrap cards in the div for each day, then create element, add content and append for each value needed?)
 
 //2. Add searched city into local storage - #history, .list-group (event listener on the search button - function to create button for city and store as array)
-var searches = [];
+var searches = JSON.parse(localStorage.getItem("searches"))||[];
 
 $("#search-button").on("click", function (event) {
     event.preventDefault();
@@ -67,7 +67,7 @@ $("#search-button").on("click", function (event) {
     addButton();
     getTodaysWeather();
      //store in local storage
-     localStorage.setItem("searches", searches);
+     localStorage.setItem("searches", JSON.stringify(searches));
 })
 
 
@@ -84,5 +84,10 @@ function addButton() {
        
         
     }
+}
+
+function previousSearchInfo() {
+    //get info from local storage
+    //run getTodaysWeather
 }
 //When the user presses the stored city button, the app displays the stats again (getItem from local storage, add event listener that calls the show temperature function)
