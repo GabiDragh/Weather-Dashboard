@@ -80,7 +80,7 @@ function getTodaysWeather(){
     console.log(humidity);
     var displayHumidity = $("<p>").text("Humidity: " + humidity + " %");
 
-     $("#today").append(headerToday, displayTemp, displayWind, displayHumidity); //append header to the html section
+     $(".card-body").append(headerToday, displayTemp, displayWind, displayHumidity); //append header to the html section
 
     })
 
@@ -89,7 +89,6 @@ function getTodaysWeather(){
 }
 getTodaysWeather();
 
-
 //Future weather conditions are shown in a 5 day forecast displaying in #forecast: the date, icon for weather conditions, temperature and humidity (create 5 bootstrap cards in the div for each day, then create element, add content and append for each value needed?)
 
 //2. Add searched city into local storage - #history/.list-group (event listener on the search button - function to create button for city and store as array)
@@ -97,7 +96,7 @@ var searches = JSON.parse(localStorage.getItem("searches"))||[];
 
 $("#search-button").on("click", function (event) {
     event.preventDefault(); 
-    $("#today").empty(); //Clear the weather info displayed when search button is pressed again
+    $(".card-body").empty(); //Clear the weather info displayed when search button is pressed again
     //$("#forecast").empty();  TODO: add clear weather info for #forecast once section finished
     var location = $("#search-input").val().trim(); //define variable to store the user input value
     searches.push(location); //push the input to the searches array
@@ -117,11 +116,11 @@ function addButton() {
     $("#history").empty(); //Clear previous button list content
     for (var i=0; i < searches.length; i++) { //iterate over the searches array
         var newButton = $("<button>"); //create button
-        newButton.addClass("searchList"); //add class content
+        newButton.addClass("searchList btn btn-warning"); //add class content
         newButton.attr("data-name", searches[i]); //retrieve data attribute
-        newButton.text(searches[i]); //add text content
+        newButton.text(searches[i].toUpperCase()); //add text content
         $("#history").prepend(newButton); //append button to the html div
-       
+       //TODO:If input is empty, do not create button
         
     }
 }
