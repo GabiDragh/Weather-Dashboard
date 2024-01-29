@@ -56,8 +56,10 @@ function getTodaysWeather(){
 
      var city = weatherData.city.name; //TODO: comment section
      console.log(city);
-     var date = dayjs().format('DD/MM/YYYY');
+     var date = weatherData.list[0].dt_txt.slice(0, 10);
      console.log(date);
+     var dateText = dayjs(date).format("DD/MM/YYYY");
+     console.log(dateText);
      var iconCode = weatherData.list[0].weather[0].icon;
      console.log(iconCode);
      var iconURL = "https://openweathermap.org/img/wn/"+ iconCode +"@2x.png";
@@ -65,23 +67,74 @@ function getTodaysWeather(){
      var icon = $("<img>").attr("src", iconURL)
      console.log(icon);
 
-     $(headerToday).append(city, " ", date, " ", icon);
+     $(headerToday).append(city, " ", dateText, " ", icon);
 
      var temp = weatherData.list[0].main.temp;
      console.log(temp);
      var displayTemp = $("<p>").text("Temp: " + temp + " \u00B0C");
 
-    var wind = weatherData.list[0].wind.speed;
-    console.log(wind);
-    var displayWind = $("<p>").text("Wind: " + wind + " KPH");
+     var wind = weatherData.list[0].wind.speed;
+     console.log(wind);
+     var displayWind = $("<p>").text("Wind: " + wind + " KPH");
 
 
-    var humidity = weatherData.list[0].main.humidity;
-    console.log(humidity);
-    var displayHumidity = $("<p>").text("Humidity: " + humidity + " %");
+     var humidity = weatherData.list[0].main.humidity;
+     console.log(humidity);
+     var displayHumidity = $("<p>").text("Humidity: " + humidity + " %");
 
      $(".card-body").append(headerToday, displayTemp, displayWind, displayHumidity); //append header to the html section
 
+     var weatherList = weatherData.list;
+
+     for (var i = 8; i < weatherList.length; i++) {
+        if (i % 8 === 0) {
+         console.log(weatherList[i]);
+
+         var col = $("<div>");
+         col.addClass("col");
+
+         var card = $("<div>");
+         card.addClass("card card-forecast p-2");
+         card.attr("style", "background-color:SeaGreen")
+
+         var headerForecast = $("<h5>");
+         
+         var nextDate = weatherList[i].dt_txt.slice(0, 10);
+         console.log(nextDate);
+         var nextDateText = dayjs(nextDate).format("DD/MM/YYYY");
+         console.log(nextDateText);
+
+         var nextIconCode = weatherList[i].weather[0].icon;
+         console.log(nextIconCode);
+         var nextIconURL = "https://openweathermap.org/img/wn/"+ nextIconCode +"@2x.png";
+         console.log(nextIconURL);
+         var nextIcon = $("<img>").attr("src", nextIconURL);
+         nextIcon.addClass("w-50");
+         console.log(nextIcon);
+
+
+         var nextTemp = weatherList[i].main.temp;
+         console.log(nextTemp);
+         var displayNextTemp = $("<p>").text("Temp: " + nextTemp + " \u00B0C");
+
+         var nextWind = weatherList[i].wind.speed;
+         console.log(nextWind);
+         var displayNextWind = $("<p>").text("Wind: " + nextWind + " KPH");
+
+
+         var nextHumidity = weatherList[i].main.humidity;
+         console.log(nextHumidity);
+         var displayNextHumidity = $("<p>").text("Humidity: " + nextHumidity + " %");
+         console.log(displayNextHumidity);
+
+         $(headerForecast).append(nextDateText);
+         $(card).append(headerForecast, nextIcon, displayNextTemp, displayNextWind, displayNextHumidity);
+         $(col).append(card);
+         $("#forecast").append(col);
+
+
+        }
+    }
     })
 
  })
@@ -97,7 +150,7 @@ var searches = JSON.parse(localStorage.getItem("searches"))||[];
 $("#search-button").on("click", function (event) {
     event.preventDefault(); 
     $(".card-body").empty(); //Clear the weather info displayed when search button is pressed again
-    //$("#forecast").empty();  TODO: add clear weather info for #forecast once section finished
+    $("#forecast").empty();  //Clear weather info for #forecast once section finished
     var location = $("#search-input").val().trim(); //define variable to store the user input value
     searches.push(location); //push the input to the searches array
     console.log(searches);
@@ -116,7 +169,7 @@ function addButton() {
     $("#history").empty(); //Clear previous button list content
     for (var i=0; i < searches.length; i++) { //iterate over the searches array
         var newButton = $("<button>"); //create button
-        newButton.addClass("searchList btn btn-warning"); //add class content
+        newButton.addClass("searchList btn btn-warning mt-2"); //add class content 
         newButton.attr("data-name", searches[i]); //retrieve data attribute
         newButton.text(searches[i].toUpperCase()); //add text content
         $("#history").prepend(newButton); //append button to the html div
