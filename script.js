@@ -54,7 +54,7 @@ function getTodaysWeather(){
      
      var headerToday = $("<h1>"); //create header div
 
-     var city = weatherData.city.name;
+     var city = weatherData.city.name; //TODO: comment section
      console.log(city);
      var date = dayjs().format('DD/MM/YYYY');
      console.log(date);
@@ -85,11 +85,9 @@ function getTodaysWeather(){
     })
 
  })
-
+ //TODO: add next 5 day forecast (call function here but define outside of getTodaysWeather function?) - iterate over the 40 intervals array, incrementing by 7 then add elements. Use bootstrap cards in html????
 }
 getTodaysWeather();
-
-
 
 
 //Future weather conditions are shown in a 5 day forecast displaying in #forecast: the date, icon for weather conditions, temperature and humidity (create 5 bootstrap cards in the div for each day, then create element, add content and append for each value needed?)
@@ -128,9 +126,7 @@ function addButton() {
     }
 }
 
-
-
-//When the user presses the stored city button, the app displays the stats again (getItem from local storage, add event listener that calls the show temperature function)
+//TODO: When the user presses the stored city button, the app displays the stats again (getItem from local storage, add event listener that calls the show temperature function)
 // function previousSearchInfo() {
 //     //event listener for button press->//get info from local storage
 //     //run getTodaysWeather
