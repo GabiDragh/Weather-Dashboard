@@ -27,7 +27,7 @@ function getWeather(location){ //using a location parameter for the function to 
 
   var currentLat = JSON.stringify(data[0].lat); //variable to extract latitude information to use in the 5-day weather API URL
   var currentLong = JSON.stringify(data[0].lon); //variable to extract longitude information to use in the 5-day weather API URL
-  
+
   console.log(typeof (lat));
   console.log(data);
   console.log(currentLat);
@@ -139,7 +139,7 @@ function getWeather(location){ //using a location parameter for the function to 
  
 } //end getWeather function
 
-getWeather(); //call function
+// getWeather(); //call function
 
 //Add searched city into local storage
 var searches = JSON.parse(localStorage.getItem("searches"))||[]; //define variable that pushes user input either into an empty array or, if the local storage array already contains information, to add to it
