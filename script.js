@@ -2,7 +2,7 @@
 
 //Fetch openweathermap.org current and future weather information for the city searched (fetch function)
 
-function getTodaysWeather(location){
+function getWeather(location){
 
   //Create search input variable to use as dynamic input in location URL 
   var searchInput = location || $("#search-input").val();
@@ -85,7 +85,7 @@ function getTodaysWeather(location){
      $(".card-body").append(headerToday, displayTemp, displayWind, displayHumidity); //append header to the html section
 
      //Future weather conditions are shown in a 5 day forecast displaying in #forecast: the date, icon for weather conditions, temperature and humidity (create 5 bootstrap cards in the div for each day, then create element, add content and append for each value needed?)
-     //TODO: add next 5 day forecast (call function here but define outside of getTodaysWeather function?) - iterate over the 40 intervals array, incrementing by 7 then add elements. Use bootstrap cards in html????
+     //TODO: add next 5 day forecast (call function here but define outside of getWeather function?) - iterate over the 40 intervals array, incrementing by 7 then add elements. Use bootstrap cards in html????
      
      var weatherList = weatherData.list;
 
@@ -143,7 +143,7 @@ function getTodaysWeather(location){
   })
  
 }
-getTodaysWeather();
+getWeather();
 
 //2. Add searched city into local storage - #history/.list-group (event listener on the search button - function to create button for city and store as array)
 var searches = JSON.parse(localStorage.getItem("searches"))||[];
@@ -157,7 +157,7 @@ $("#search-button").on("click", function (event) {
     console.log(searches);
 
     addButton(); //create a button for the new search
-    getTodaysWeather(); //display the weather
+    getWeather(); //display the weather
     $("#search-input").val(""); //clear the input value 
      //store in local storage
      localStorage.setItem("searches", JSON.stringify(searches));
@@ -168,31 +168,36 @@ $("#search-button").on("click", function (event) {
 
 function addButton() {
     $("#history").empty(); //Clear previous button list content
+
     for (var i=0; i < searches.length; i++) { //iterate over the searches array
+
+        if (searches[i].trim() !== "") { //create button if the input is not empty (eliminates creating empty content buttons)
         var newButton = $("<button>"); //create button
         newButton.addClass("searchList btn btn-warning mt-2"); //add class content 
         newButton.attr("data-name", searches[i]); //retrieve data attribute
         newButton.text(searches[i].toUpperCase()); //add text content
         $("#history").prepend(newButton); //append button to the html div
-       //TODO:If input is empty, do not create button
+      };
         
     }
 }
 
-//TODO: When the user presses the stored city button, the app displays the stats again (getItem from local storage, add event listener that calls the show temperature function)
+//When the user presses the stored city button, the app displays the stats again (getItem from local storage, add event listener that calls the show temperature function)
 
-//     //event listener for button press->//get info from local storage
+//event listener for button press->//get info from local storage
 $("#history").on("click", ".searchList", function (event) {
     event.preventDefault(); 
     $(".card-body").empty(); //Clear the weather info displayed when search button is pressed again
     $("#forecast").empty();  //Clear weather info for #forecast once section finished
     var searchPrevious = JSON.parse(localStorage.getItem("searches"));
     console.log(searchPrevious);
-
-    var selectedLocation = $(this).data("name");
-//     //run getTodaysWeather
-   getTodaysWeather(selectedLocation);
+    var selectedLocation = $(this).data("name"); //variable defined with the data name attribute of the clicked button to pass into getWeather function
+    getWeather(selectedLocation); //run getWeather function
  })
 
-
-
+//Add button to clear the previous searches history
+$("#clear-button").on("click", function () {
+   localStorage.removeItem("searches"); //Clear local storage information
+   searches = []; //reset the searches array to an empty one
+   $("history").empty(); //Clear the displayed buttons 
+})
