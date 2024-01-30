@@ -11,7 +11,7 @@ function getWeather(location){ //using a location parameter for the function to 
   var APIkey = "5dd9042c49a35a443a574925136ee109";
 
   //Create the geocoding API URL needed to access the current weather database, using the API key variable
-  var currentLocationURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchInput + "&limit=2&appid=" + APIkey;
+  var currentLocationURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchInput + "&limit=2&appid=" + APIkey;
   console.log(currentLocationURL);
 
   //Run fetch call for the URL
@@ -27,13 +27,14 @@ function getWeather(location){ //using a location parameter for the function to 
 
   var currentLat = JSON.stringify(data[0].lat); //variable to extract latitude information to use in the 5-day weather API URL
   var currentLong = JSON.stringify(data[0].lon); //variable to extract longitude information to use in the 5-day weather API URL
-
+  
+  console.log(typeof (lat));
   console.log(data);
   console.log(currentLat);
   console.log(currentLong);
 
   //Create data API URL to call 5 day/3 hour forecast data using the geocoding coordinates and the API key variable
-  var currentWeatherURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + currentLat + "&lon=" + currentLong + "&units=metric&appid=" + APIkey;
+  var currentWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + currentLat + "&lon=" + currentLong + "&units=metric&appid=" + APIkey;
   console.log(currentWeatherURL);
 
   //Current weather conditions to display in #today: city name, date, weather conditions icon, temperature, humidity, wind speed (create element, add content and append for each value)
