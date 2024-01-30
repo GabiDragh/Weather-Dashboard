@@ -8,7 +8,7 @@
   <!--Link Bootstrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <!--Css file link modified-->
-  <link rel="stylesheet" href="style.css" />
+  <!-- <link rel="stylesheet" href="style.css"/>  -->
   <title>Weather Dashboard</title>
 </head>
 
@@ -21,20 +21,20 @@
   <div class="container-fluid" style="max-width: 1400px">
     <div class="row">
       <aside class="col-lg-2 pb-3">
-        <h2 id="form-heading" class="mt-1 h3 form-label">
+        <h2 id="form-heading" class="mt-1 h2 form-label">
           Search for a City:
         </h2>
         <form id="search-form" class="form">
           <div class="form-inline form-group">
             <div class="input-group">
-              <input class="form-input weather-search h-50" type="text" id="search-input" placeholder="London"
+              <input class="form-input weather-search h-50" type="text" id="search-input" placeholder="Location"
                 aria-labelledby="form-heading"/> <!--Form search box size changed to h-50-->
                 <br></br>
               <div class="input-group-append">
-                <button type="submit" class="btn btn-success mt-2" id="search-button"> <!--Button color changed-->
+                <button type="submit" class="btn btn-success mt-1" id="search-button"> <!--Button color changed-->
                   Search
                 </button>
-                <button type="submit" class="btn btn-danger mt-2" id="clear-button"> <!--Button color changed-->
+                <button type="submit" class="btn btn-danger mt-1" id="clear-button"> <!--Button color changed-->
                   Clear all
                 </button>
                 <hr class="hr weather-hr" />
@@ -57,7 +57,7 @@
       <h4>5-Day Forecast</h4>
       <br></br>
         <section id="forecast" class="row mt-3" role="region" aria-live="polite">
-             <!--5 Bootstrap cards added for forecast weather-->
+             <!--5 Bootstrap cards dynamically added for forecast weather-->
         </section>
       </div>
     </div>
