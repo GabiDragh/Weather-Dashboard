@@ -41,4 +41,4 @@ OpenWeather Geocoding API: https://openweathermap.org/api/geocoding-api
 Link to the deployed application https://gabidragh.github.io/Weather-Dashboard/
 
 Screenshot of the application 
-![Application Screenshot](screencapture-127-0-0-1-5500-Weather-Dashboard-index-html-2024-01-30-02_40_33.png?raw=true "Application Screenshot")
+![Application Screenshot](screencapture-127-0-0-1-5500-Weather-Dashboard-index-html-2024-01-30-03_10_07.png?raw=true "Application Screenshot")
