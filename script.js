@@ -2,10 +2,10 @@
 
 //Fetch openweathermap.org current and future weather information for the city searched (fetch function)
 
-function getTodaysWeather(){
+function getTodaysWeather(location){
 
   //Create search input variable to use as dynamic input in location URL 
-  var searchInput = $("#search-input").val();
+  var searchInput = location || $("#search-input").val();
   console.log(searchInput);
 
   //Create API key variable to use for both today's conditions and 5-day forecast URLs:
@@ -47,7 +47,7 @@ function getTodaysWeather(){
      return response.json();
     })
   //Function that stores all data
-     .then(function (weatherData) {
+    .then(function (weatherData) {
      console.log(weatherData);
     
      //In #today HTML section, create a header div containing the name, date and the icon, then add the next lines of information (temperature, humidity, wind speed)
@@ -84,10 +84,14 @@ function getTodaysWeather(){
 
      $(".card-body").append(headerToday, displayTemp, displayWind, displayHumidity); //append header to the html section
 
+     //Future weather conditions are shown in a 5 day forecast displaying in #forecast: the date, icon for weather conditions, temperature and humidity (create 5 bootstrap cards in the div for each day, then create element, add content and append for each value needed?)
+     //TODO: add next 5 day forecast (call function here but define outside of getTodaysWeather function?) - iterate over the 40 intervals array, incrementing by 7 then add elements. Use bootstrap cards in html????
+     
      var weatherList = weatherData.list;
 
-     for (var i = 8; i < weatherList.length; i++) {
-        if (i % 8 === 0) {
+      for (var i = 7; i < weatherList.length; i++) {
+       
+        if ((i+1) % 8 === 0) {
          console.log(weatherList[i]);
 
          var col = $("<div>");
@@ -132,17 +136,14 @@ function getTodaysWeather(){
          $(col).append(card);
          $("#forecast").append(col);
 
-
         }
-    }
+      }
     })
 
- })
- //TODO: add next 5 day forecast (call function here but define outside of getTodaysWeather function?) - iterate over the 40 intervals array, incrementing by 7 then add elements. Use bootstrap cards in html????
+  })
+ 
 }
 getTodaysWeather();
-
-//Future weather conditions are shown in a 5 day forecast displaying in #forecast: the date, icon for weather conditions, temperature and humidity (create 5 bootstrap cards in the div for each day, then create element, add content and append for each value needed?)
 
 //2. Add searched city into local storage - #history/.list-group (event listener on the search button - function to create button for city and store as array)
 var searches = JSON.parse(localStorage.getItem("searches"))||[];
@@ -179,8 +180,19 @@ function addButton() {
 }
 
 //TODO: When the user presses the stored city button, the app displays the stats again (getItem from local storage, add event listener that calls the show temperature function)
-// function previousSearchInfo() {
+
 //     //event listener for button press->//get info from local storage
+$("#history").on("click", ".searchList", function (event) {
+    event.preventDefault(); 
+    $(".card-body").empty(); //Clear the weather info displayed when search button is pressed again
+    $("#forecast").empty();  //Clear weather info for #forecast once section finished
+    var searchPrevious = JSON.parse(localStorage.getItem("searches"));
+    console.log(searchPrevious);
+
+    var selectedLocation = $(this).data("name");
 //     //run getTodaysWeather
-// }
-// previousSearchInfo();
+   getTodaysWeather(selectedLocation);
+ })
+
+
+
