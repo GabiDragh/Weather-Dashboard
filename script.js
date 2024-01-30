@@ -139,7 +139,6 @@ function getWeather(location){ //using a location parameter for the function to 
  
 } //end getWeather function
 
-// getWeather(); //call function
 
 //Add searched city into local storage
 var searches = JSON.parse(localStorage.getItem("searches"))||[]; //define variable that pushes user input either into an empty array or, if the local storage array already contains information, to add to it
